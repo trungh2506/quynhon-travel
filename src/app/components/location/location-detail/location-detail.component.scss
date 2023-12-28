@@ -1,0 +1,43 @@
+.place-detail {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+.place-info {
+  padding: 20px 0;
+}
+
+.place-info h1 {
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.place-info p {
+  font-size: 16px;
+  line-height: 1.5;
+  color: #555;
+}
+
+.place-images {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 10px;
+  margin-top: 20px;
+}
+
+
+.place-images p-img:first-child {
+  grid-column: span 2; /* Ảnh chính chiếm 2 cột */
+}
+
+.map {
+  margin-top: 20px;
+  /* Thêm các kiểu CSS cho phần bản đồ nếu cần */
+}
+
+

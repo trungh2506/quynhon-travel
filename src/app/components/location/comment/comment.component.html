@@ -1,0 +1,11 @@
+<div class="comment p-card">
+  <div class="comment-header">
+    <div class="comment-author ">{{ comment.author }}</div>
+  </div>
+  <div class="comment-body">
+    <p>{{ comment.text }}</p>
+  </div>
+  <div class="comment-footer">
+    <button pButton type="button" label="Phản hồi" class="p-button-text" (click)="onReplyClick()"></button>
+  </div>
+</div>

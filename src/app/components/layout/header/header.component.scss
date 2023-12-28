@@ -1,0 +1,46 @@
+
+.app-header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease; /* Thêm hiệu ứng chuyển đổi cho background-color nếu bạn muốn */
+}
+
+.app-header.scrolled {
+  background-color: #fff; /* Màu nền bạn muốn khi header cuộn */
+}
+
+.logo {
+  text-decoration: none;
+  font-size: 24px;
+  font-weight: bold;
+  color: #ff5a5f;
+}
+
+.user-profile {
+  display: flex;
+  align-items: center;
+}
+.user-profile button{
+  margin-left: 10px;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.username {
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.provide-location-button a{
+  text-decoration: none;
+}

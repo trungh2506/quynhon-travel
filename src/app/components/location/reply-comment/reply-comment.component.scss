@@ -1,0 +1,28 @@
+.reply {
+  margin-top: 20px;
+}
+
+.p-inputtextarea {
+  width: 100%;
+  border: 1px solid #d4d2d0;
+  border-radius: 8px;
+  padding: 12px;
+  font-size: 14px;
+  line-height: 1.5;
+  resize: none;
+}
+
+.p-button {
+  background-color: #008489;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.p-button:hover {
+  background-color: #006d73;
+}

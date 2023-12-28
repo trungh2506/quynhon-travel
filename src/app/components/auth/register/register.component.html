@@ -1,0 +1,15 @@
+<form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+  <div class="p-field">
+    <label for="username">Họ tên</label>
+    <input id="username" pInputText formControlName="username" />
+  </div>
+  <div class="p-field">
+    <label for="email">Email</label>
+    <input id="email" pInputText formControlName="email" />
+  </div>
+  <div class="p-field">
+    <label for="password">Mật khẩu</label>
+    <input id="password" pPassword formControlName="password" />
+  </div>
+  <button pButton type="submit" label="Register" [disabled]="!registerForm.valid"></button>
+</form>

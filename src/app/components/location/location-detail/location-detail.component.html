@@ -1,0 +1,23 @@
+<div class="place-detail">
+  <div class="place-info">
+    <h1>Beautiful Place</h1>
+    <p>Description of the place...</p>
+    <!-- Thêm thông tin khác như giá, tiện ích, v.v. -->
+  </div>
+  <div class="place-images">
+    <!-- Hình ảnh địa điểm -->
+    <p-image src="assets/bien-quy-nhon.jpg" alt="Image" width="300px" [preview]="true"></p-image>
+    <p-image src="assets/bien-quy-nhon.jpg" alt="Image2" width="300px" [preview]="true"></p-image>
+  </div>
+  
+  <div class="map">
+  </div>
+</div>
+<div *ngFor="let comment of comments">
+  <app-comment [comment]="comment" (replyClicked)="onReplyClicked($event)"></app-comment>
+
+  <!-- Show Reply Dialog -->
+  <p-dialog [(visible)]="selectedComment" header="Reply">
+    <app-reply-comment [parentComment]="selectedComment"></app-reply-comment>
+  </p-dialog>
+</div>

@@ -1,0 +1,26 @@
+<form [formGroup]="addLocationForm" (ngSubmit)="onSubmit()">
+  <div class="p-field">
+    <label for="name">Tên địa điểm</label>
+    <input id="name" pInputText formControlName="name" />
+    <p-message severity="error" text="Tên địa điểm là trường bắt buộc" *ngIf="addLocationForm.get('name')?.hasError('required') && addLocationForm.get('name')?.touched"></p-message>
+  </div>
+
+  <div class="p-field">
+    <label for="description">Mô tả</label>
+    <textarea id="description" pInputTextarea formControlName="description"></textarea>
+    <p-message severity="error" text="Mô tả là trường bắt buộc" *ngIf="addLocationForm.get('description')?.hasError('required') && addLocationForm.get('description')?.touched"></p-message>
+  </div>
+
+  <div class="p-field">
+    <label for="address">Địa chỉ</label>
+    <input id="address" pInputText formControlName="address" />
+    <p-message severity="error" text="Địa chỉ là trường bắt buộc" *ngIf="addLocationForm.get('address')?.hasError('required') && addLocationForm.get('address')?.touched"></p-message>
+  </div>
+
+  <div class="p-field">
+    <label for="images">Hình ảnh</label>
+    <p-fileUpload name="images" accept="image/*" [maxFileSize]="1000000" mode="advanced" [multiple]="true" formControlName="images"></p-fileUpload>
+  </div>
+
+  <button pButton type="submit" label="Cung cấp địa điểm" [disabled]="!addLocationForm.valid"></button>
+</form>
