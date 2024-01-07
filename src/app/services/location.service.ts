@@ -20,4 +20,7 @@ export class LocationService {
   getLocations(): Observable<any>{
     return this.http.get<any>(`${this.apiUrl}/locations`);
   }
+  addLocation(location : FormData): Observable<any>{
+    return this.http.post<any>(`${this.apiUrl}/user/upload`, location);
+  }
 }

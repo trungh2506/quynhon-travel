@@ -57,7 +57,6 @@ export class HeaderComponent implements OnInit{
   }
   getAvatar(){
     let avatar = this.authService.decodedToken().avatar;
-    console.log(avatar);
     return avatar;
   }
   isAdmin(){

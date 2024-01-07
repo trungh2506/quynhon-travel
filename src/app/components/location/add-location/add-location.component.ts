@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UploadEvent } from 'primeng/fileupload';
+import { LocationService } from 'src/app/services/location.service';
 
 interface City {
   name: string,
@@ -12,19 +14,14 @@ interface City {
   styleUrls: ['./add-location.component.scss']
 })
 export class AddLocationComponent implements OnInit{
-  cities!: City[];
-
-  selectedCities!: City[];
+  readonly apiUrlUpload = 'http://localhost:4000/uploads/locations';
+  categories: any[] = [];
+  selectedCategories!: any[];
   addLocationForm!: FormGroup;
-
-  constructor(private fb: FormBuilder) { 
-    this.cities = [
-      {name: 'New York', code: 'NY'},
-      {name: 'Rome', code: 'RM'},
-      {name: 'London', code: 'LDN'},
-      {name: 'Istanbul', code: 'IST'},
-      {name: 'Paris', code: 'PRS'}
-  ];
+  selectedImages: any[] = [];
+  sanitizer: any;
+  constructor(private fb: FormBuilder, private locationService : LocationService) { 
+    this.getCategories();
   }
 
   ngOnInit(): void {
@@ -36,11 +33,42 @@ export class AddLocationComponent implements OnInit{
       images: [[]]  // Sử dụng mảng để lưu trữ nhiều hình ảnh
     });
   }
-
+  getCategories(){
+    this.locationService.getCategories().subscribe(data => {
+      this.categories = data.categories;
+    })
+  }
   onSubmit() {
     if (this.addLocationForm.valid) {
-      // Xử lý khi form hợp lệ
-      console.log(this.addLocationForm.value);
+      const formData = new FormData();
+
+    // Thêm hình ảnh vào formData
+    for(let img of this.selectedImages){
+      formData.append('images', img)
     }
+
+    // Thêm các trường dữ liệu khác nếu cần
+    formData.append('name', this.addLocationForm.get('name')?.value);
+    formData.append('description', this.addLocationForm.get('description')?.value);
+    formData.append('address', this.addLocationForm.get('address')?.value);
+
+    const categories = this.addLocationForm.get('categories')?.value;
+    const categoryIds = categories.map((category: any) => category._id);
+    formData.append('categories', JSON.stringify(categoryIds));
+
+
+    this.locationService.addLocation(formData).subscribe(response => {
+      console.log('Upload successful:', response);
+      // Thực hiện các xử lý sau khi tải lên thành công
+    });
+      }
+    }
+  onImageSelect(event: any) {
+    if(event.target.files.length > 0){
+      this.selectedImages = event.target.files;
+    }
+  }
+  getImageUrl(image: File): string {
+    return URL.createObjectURL(image);
   }
 }

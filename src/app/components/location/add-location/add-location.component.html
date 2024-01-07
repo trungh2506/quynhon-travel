@@ -11,7 +11,7 @@
   </div>
   <div class="p-field">
     <label for="">Loại địa điểm</label>
-    <p-multiSelect [options]="cities" formControlName="categories" optionLabel="name" placeholder="Loại địa điểm" display="chip"></p-multiSelect>
+    <p-multiSelect [options]="categories" formControlName="categories" optionLabel="name" placeholder="Loại địa điểm" display="chip"></p-multiSelect>
   </div>
   <div class="p-field">
     <label for="address">Địa chỉ</label>
@@ -21,7 +21,10 @@
 
   <div class="p-field">
     <label for="images">Hình ảnh</label>
-    <p-fileUpload name="images" accept="image/*" [maxFileSize]="1000000" mode="advanced" [multiple]="true" formControlName="images"></p-fileUpload>
+    <input type="file" id="images" (change)="onImageSelect($event)" multiple />
+    <div *ngFor="let image of selectedImages">
+      <img style="width: 100px; height: 100px;" [src]="getImageUrl(image)" alt="Uploaded Image" />
+    </div>
   </div>
 
   <button pButton type="submit" label="Cung cấp địa điểm" [disabled]="!addLocationForm.valid"></button>
