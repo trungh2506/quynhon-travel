@@ -1,6 +1,10 @@
-<app-category label="Beach"></app-category>
+<!-- <app-category label="Beach"></app-category>
 <app-category label="Mountain"></app-category>
-<app-category label="City"></app-category>
+<app-category label="City"></app-category> -->
+
+<div class="">
+  <app-category *ngFor="let category of categories" [label]="category.name"></app-category>
+</div>
 <div class="location-list">
   <a class="location-card">
     <img src="assets/bien-quy-nhon.jpg" alt="Location Image" />

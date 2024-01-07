@@ -1,7 +1,9 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MenuItem, MessageService } from 'primeng/api';
+import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
+import { JwtHelperService } from '@auth0/angular-jwt';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -9,7 +11,9 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class HeaderComponent implements OnInit{
   items: MenuItem[] | undefined;
-  constructor(private authService : AuthService, private router : Router){}
+  constructor(private authService : AuthService, private router : Router){
+
+  }
   ngOnInit(): void {
     this.items = [
       {
@@ -47,6 +51,17 @@ export class HeaderComponent implements OnInit{
   }
   isLoggedIn(){
     if(this.authService.isLoggedIn()){
+      return true;
+    }
+    return false;
+  }
+  getAvatar(){
+    let avatar = this.authService.decodedToken().avatar;
+    console.log(avatar);
+    return avatar;
+  }
+  isAdmin(){
+    if(this.authService.decodedToken().role === true){
       return true;
     }
     return false;

@@ -1,7 +1,7 @@
 <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
   <div class="p-field">
-    <label for="username">Họ tên</label>
-    <input id="username" pInputText formControlName="username" />
+    <label for="fullname">Họ tên</label>
+    <input id="fullname" pInputText formControlName="fullname" />
   </div>
   <div class="p-field">
     <label for="email">Email</label>
@@ -9,7 +9,7 @@
   </div>
   <div class="p-field">
     <label for="password">Mật khẩu</label>
-    <input id="password" pPassword formControlName="password" />
+    <input id="password" pInputText type="password" formControlName="password" />
   </div>
-  <button pButton type="submit" label="Register" [disabled]="!registerForm.valid"></button>
+  <button pButton type="submit" label="Đăng ký" [disabled]="!registerForm.valid"></button>
 </form>

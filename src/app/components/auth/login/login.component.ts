@@ -22,7 +22,7 @@ export class LoginComponent {
     if (this.loginForm.valid) {
       this.authService.login(this.loginForm.get('email')?.value, this.loginForm.get('password')?.value)
           .subscribe(data => {
-            const token = data.Access_TOKEN;
+            const token = data.access_token;
             this.authService.saveToken(token);
             alert('Đăng nhập thành công!!!');
             this.router.navigate(['/']);

@@ -11,7 +11,7 @@ import { HeaderComponent } from './components/layout/header/header.component';
 import { CategoryComponent } from './components/location/category/category.component';
 import { FooterComponent } from './components/layout/footer/footer.component';
 import { LocationDetailComponent } from './components/location/location-detail/location-detail.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 
 // Import PrimeNG modules
 import { AccordionModule } from 'primeng/accordion';
@@ -109,6 +109,7 @@ import { CommentComponent } from './components/location/comment/comment.componen
 import { ReplyCommentComponent } from './components/location/reply-comment/reply-comment.component';
 import { FavoriteListComponent } from './components/user/favorite-list/favorite-list.component';
 import { AddLocationComponent } from './components/location/add-location/add-location.component';
+import { InterceptorService } from './services/interceptor.service';
 
 @NgModule({
   declarations: [
@@ -224,7 +225,13 @@ import { AddLocationComponent } from './components/location/add-location/add-loc
     StyleClassModule,
     
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: InterceptorService,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
