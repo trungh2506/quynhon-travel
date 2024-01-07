@@ -1,5 +1,7 @@
 import { Component, HostListener, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { MenuItem, MessageService } from 'primeng/api';
+import { AuthService } from 'src/app/services/auth.service';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -7,6 +9,7 @@ import { MenuItem, MessageService } from 'primeng/api';
 })
 export class HeaderComponent implements OnInit{
   items: MenuItem[] | undefined;
+  constructor(private authService : AuthService, private router : Router){}
   ngOnInit(): void {
     this.items = [
       {
@@ -23,16 +26,29 @@ export class HeaderComponent implements OnInit{
       },
       {
           label: 'Đăng xuất',
-          icon: 'pi pi-sign-out'
+          icon: 'pi pi-sign-out',
+          command: () => {
+            this.logout();
+          }
       }
       
   ]
 } 
-update() {
-  console.log('Update');
-}
+  update() {
+    console.log('Update');
+  }
 
-delete() {
-  console.log('Delete')
-}
+  delete() {
+    console.log('Delete')
+  }
+  logout(){
+    this.authService.logout();
+    this.router.navigate(['/']);
+  }
+  isLoggedIn(){
+    if(this.authService.isLoggedIn()){
+      return true;
+    }
+    return false;
+  }
 }

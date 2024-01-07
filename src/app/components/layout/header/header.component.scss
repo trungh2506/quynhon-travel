@@ -26,9 +26,21 @@
   align-items: center;
 }
 .user-profile button{
+  border-radius: 30px;
+  margin-left: 10px;
+}
+.user-profile img{
+  padding: 3px;
+  cursor: pointer;
   margin-left: 10px;
 }
 
+
+.user-profile img:hover{
+  transition: background-color 1s ease;
+  background-color: #080404;
+  cursor: pointer;
+}
 .avatar {
   width: 40px;
   height: 40px;
@@ -43,4 +55,8 @@
 
 .provide-location-button a{
   text-decoration: none;
+}
+
+.p-inputgroup{
+  max-width: 300px;
 }

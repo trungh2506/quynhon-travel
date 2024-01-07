@@ -109,6 +109,7 @@ import { CommentComponent } from './components/location/comment/comment.componen
 import { ReplyCommentComponent } from './components/location/reply-comment/reply-comment.component';
 import { FavoriteListComponent } from './components/user/favorite-list/favorite-list.component';
 import { AddLocationComponent } from './components/location/add-location/add-location.component';
+
 @NgModule({
   declarations: [
     AppComponent,
