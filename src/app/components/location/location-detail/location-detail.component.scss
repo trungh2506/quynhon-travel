@@ -1,5 +1,5 @@
 .place-detail {
-  max-width: 900px;
+  max-width: 100%;
   margin: 0 auto;
   padding: 20px;
   background-color: #fff;
@@ -31,7 +31,7 @@
 }
 
 
-.place-images p-img:first-child {
+.place-images p-image:first-child {
   grid-column: span 2; /* Ảnh chính chiếm 2 cột */
 }
 

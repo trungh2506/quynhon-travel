@@ -41,7 +41,6 @@ export class CommentComponent {
   getCommentByLocationId(location_id: string){
     this.commentService.getCommentByLocationId(location_id).subscribe(res => {
       this.comments = res.comments;
-      console.log(this.comments);
     })
   }
 }

@@ -7,7 +7,10 @@
   </div>
   <div class="place-images">
     <!-- Hình ảnh địa điểm -->
-    <p-image *ngFor="let image of this.location.img_name, index as i" src="http://localhost:4000/locations/{{location.img_name[i]}}" alt="Image" width="300px" [preview]="true"></p-image>
+    <p-image *ngFor="let image of this.location.img_name, index as i" 
+    src="http://localhost:4000/locations/{{location.img_name[i]}}" 
+    alt="Image" width="300px" [preview]="true"></p-image>
+
   </div>
   
   <div class="map">
