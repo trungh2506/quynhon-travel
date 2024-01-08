@@ -1,11 +1,36 @@
-<div class="comment p-card">
-  <div class="comment-header">
-    <div class="comment-author ">{{ comment.author }}</div>
-  </div>
-  <div class="comment-body">
-    <p>{{ comment.text }}</p>
-  </div>
-  <div class="comment-footer">
-    <button pButton type="button" label="Phản hồi" class="p-button-text" (click)="onReplyClick()"></button>
-  </div>
+<div class="comment-section">
+  <h3>Đánh giá</h3>
+  <form [formGroup]="commentForm" (ngSubmit)="onSubmit()">
+    <div class="p-field">
+      <textarea id="message" pInputTextarea formControlName="message" placeholder="Viết đánh giá của bạn..."></textarea>
+    </div>
+    <div class="rating" style="padding: 10px 0">
+      <p-rating [(ngModel)]="value" [readonly]="false" [cancel]="false" formControlName="rating"></p-rating>
+    </div>
+    <button pButton type="submit" label="Gửi" [disabled]="!this.commentForm.valid"></button>
+  </form>
 </div>
+<h4>{{ this.commentForm.value | json}}</h4>
+<h4>{{ this.commentForm.status | json}}</h4>
+  <!-- Hiển thị danh sách bình luận -->
+<div class="comment-list">
+    <div *ngFor="let comment of this.comments" class="comment-item p-card p-shadow-2">
+      <div class="comment-header">
+        <div class="avatar">
+          <img src="assets/photo-35-16937323969741858692000.webp" alt="Avatar" />
+        </div>
+        <div class="user-info">
+          <span class="comment-user">Trung Hàn</span>
+          <span class="comment-date">{{ comment.created_at | date: 'dd/MM/yyyy HH:mm' }}</span>
+        </div>
+      </div>
+      <div class="comment-text"><h3>{{ comment.message }}</h3></div>
+      <div class="rating" style="padding: 10px 0">
+        <p-rating [(ngModel)]="value" [readonly]="false" [cancel]="false"></p-rating>
+      </div>
+      <div class="liked">
+        <p-button icon="pi pi-thumbs-up-fill" label="{{ comment.liked }}"></p-button>
+      </div>
+    </div>
+  </div>
+  

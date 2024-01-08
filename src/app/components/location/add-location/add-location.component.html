@@ -5,9 +5,9 @@
     <p-message severity="error" text="Tên địa điểm là trường bắt buộc" *ngIf="addLocationForm.get('name')?.hasError('required') && addLocationForm.get('name')?.touched"></p-message>
   </div>
   <div class="p-field">
-    <label for="description">Mô tả</label>
-    <textarea id="description" pInputTextarea formControlName="description"></textarea>
-    <p-message severity="error" text="Mô tả là trường bắt buộc" *ngIf="addLocationForm.get('description')?.hasError('required') && addLocationForm.get('description')?.touched"></p-message>
+    <label for="desc">Mô tả</label>
+    <textarea id="desc" pInputTextarea formControlName="desc"></textarea>
+    <p-message severity="error" text="Mô tả là trường bắt buộc" *ngIf="addLocationForm.get('desc')?.hasError('required') && addLocationForm.get('desc')?.touched"></p-message>
   </div>
   <div class="p-field">
     <label for="">Loại địa điểm</label>

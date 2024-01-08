@@ -6,6 +6,7 @@ import { LocationListComponent } from './components/location/location-list/locat
 import { LocationDetailComponent } from './components/location/location-detail/location-detail.component';
 import { FavoriteListComponent } from './components/user/favorite-list/favorite-list.component';
 import { AddLocationComponent } from './components/location/add-location/add-location.component';
+import { GuardService } from './services/guard.service';
 
 const routes: Routes = [
   {
@@ -18,13 +19,13 @@ const routes: Routes = [
     path: 'home', component: LocationListComponent
   },
   {
-    path: 'add', component: AddLocationComponent
+    path: 'add', canActivate: [GuardService], component: AddLocationComponent
   },
   {
     path: 'favorites',  component: FavoriteListComponent
   },
   {
-    path: 'location/detail/:id', component: LocationDetailComponent
+    path: 'location/:id', component: LocationDetailComponent
   },
   {
     path: '**', redirectTo: 'home'

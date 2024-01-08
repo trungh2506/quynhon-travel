@@ -3,10 +3,6 @@
   <div class="provide-location-button">
     <a [routerLink]="['/add']" pButton pRipple label="Cung cấp địa điểm" class="p-button-success"></a>
   </div>
-  <div class="p-inputgroup">
-    <input type="text" pInputText placeholder="Tìm kiếm địa điểm..." />
-    <button type="button" pButton icon="pi pi-search" styleClass="p-button-warn"></button>
-  </div>
   <div *ngIf="!isLoggedIn()" class="user-profile">
     <a [routerLink]="['/login']"><button pButton type="button" label="Đăng nhập"></button></a>
     <a [routerLink]="['/register']"><button pButton type="button" label="Đăng ký"></button></a>

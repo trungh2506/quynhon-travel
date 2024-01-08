@@ -1,27 +1,61 @@
-.comment {
+.comment-section {
+  margin-top: 20px;
+  padding: 20px;
+  border: 1px solid #ddd;
+  background-color: #f9f9f9;
+}
+
+.comment-item {
+  margin-top: 10px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  background-color: #fff;
+}
+
+textarea {
   width: 100%;
-  border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  margin-bottom: 20px;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  resize: vertical;
+}
+
+
+.comment-list {
+  margin-top: 20px;
+}
+
+.comment-item {
+  margin-bottom: 15px;
 }
 
 .comment-header {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  align-items: center; /* Canh giữa các phần tử trong header */
+  margin-bottom: 5px;
 }
 
-.comment-author {
-  font-weight: bold;
-  padding: 5px;
+.avatar img {
+  width: 40px; /* Điều chỉnh kích thước avatar theo mong muốn */
+  height: 40px;
+  border-radius: 50%; /* Làm tròn góc để tạo hình dạng hình tròn */
+  margin-right: 10px; /* Khoảng cách giữa avatar và thông tin người dùng */
 }
 
-.comment-body {
-  padding: 5px;
-  font-size: 16px;
-}
-
-.comment-footer {
+.user-info {
   display: flex;
-  justify-content: flex-end;
+  flex-direction: column;
+}
+
+.comment-user {
+  font-weight: bold;
+}
+
+.comment-date {
+  color: #777;
+}
+
+.comment-text {
+  white-space: pre-wrap;
 }

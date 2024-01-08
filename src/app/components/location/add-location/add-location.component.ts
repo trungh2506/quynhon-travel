@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UploadEvent } from 'primeng/fileupload';
+import { AuthService } from 'src/app/services/auth.service';
 import { LocationService } from 'src/app/services/location.service';
 
 interface City {
@@ -20,7 +21,7 @@ export class AddLocationComponent implements OnInit{
   addLocationForm!: FormGroup;
   selectedImages: any[] = [];
   sanitizer: any;
-  constructor(private fb: FormBuilder, private locationService : LocationService) { 
+  constructor(private fb: FormBuilder, private locationService : LocationService, private authService : AuthService) { 
     this.getCategories();
   }
 
@@ -28,7 +29,7 @@ export class AddLocationComponent implements OnInit{
     this.addLocationForm = this.fb.group({
       name: ['', Validators.required],
       categories: [[]],
-      description: ['', Validators.required],
+      desc: ['', Validators.required],
       address: ['', Validators.required],
       images: [[]]  // Sử dụng mảng để lưu trữ nhiều hình ảnh
     });
@@ -48,10 +49,11 @@ export class AddLocationComponent implements OnInit{
     }
 
     // Thêm các trường dữ liệu khác nếu cần
-    formData.append('name', this.addLocationForm.get('name')?.value);
-    formData.append('description', this.addLocationForm.get('description')?.value);
-    formData.append('address', this.addLocationForm.get('address')?.value);
+    formData.append('user_id', this.authService.decodedToken().user_id);
 
+    formData.append('name', this.addLocationForm.get('name')?.value);
+    formData.append('desc', this.addLocationForm.get('desc')?.value);
+    formData.append('address', this.addLocationForm.get('address')?.value);
     const categories = this.addLocationForm.get('categories')?.value;
     const categoryIds = categories.map((category: any) => category._id);
     formData.append('categories', JSON.stringify(categoryIds));
