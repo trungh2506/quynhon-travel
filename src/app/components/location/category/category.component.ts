@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-category',
@@ -7,4 +8,5 @@ import { Component, Input } from '@angular/core';
 })
 export class CategoryComponent {
   @Input() label: string | undefined;
+
 }

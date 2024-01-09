@@ -1,13 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { UploadEvent } from 'primeng/fileupload';
 import { AuthService } from 'src/app/services/auth.service';
 import { LocationService } from 'src/app/services/location.service';
 
-interface City {
-  name: string,
-  code: string
-}
 
 @Component({
   selector: 'app-add-location',
@@ -21,7 +18,10 @@ export class AddLocationComponent implements OnInit{
   addLocationForm!: FormGroup;
   selectedImages: any[] = [];
   sanitizer: any;
-  constructor(private fb: FormBuilder, private locationService : LocationService, private authService : AuthService) { 
+  constructor(private fb: FormBuilder, 
+    private locationService : LocationService, 
+    private authService : AuthService,
+    private router: Router) { 
     this.getCategories();
   }
 
@@ -60,8 +60,9 @@ export class AddLocationComponent implements OnInit{
 
 
     this.locationService.addLocation(formData).subscribe(response => {
-      console.log('Upload successful:', response);
-      // Thực hiện các xử lý sau khi tải lên thành công
+      // console.log('Upload successful:', response);
+      alert('Thêm địa điểm thành công. Cảm ơn bạn đã cung cấp!')
+      this.router.navigate(['/add']);
     });
       }
     }

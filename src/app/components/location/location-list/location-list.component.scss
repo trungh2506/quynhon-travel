@@ -44,12 +44,18 @@
   top: 10px;
   right: 10px;
   font-size: 24px; /* Kích thước của icon */
-  color: #e74c3c; /* Màu sắc của icon */
+  color: white; /* Màu sắc của icon */
   cursor: pointer;
   z-index: 1; /* Đảm bảo icon nằm trên hình ảnh */
   transition: color 0.3s, background-color 0.3s;
 }
 .favorite-icon:hover {
-  color: #c0392b; /* Màu sắc của icon khi hover */
+  color: #e74c3c; /* Màu sắc của icon khi hover */
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.load-more-btn{
+  margin-top: 20px;
 }
 

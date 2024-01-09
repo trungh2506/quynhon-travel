@@ -226,6 +226,7 @@ import { InterceptorService } from './services/interceptor.service';
     
   ],
   providers: [
+    MessageService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: InterceptorService,

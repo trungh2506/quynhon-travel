@@ -1,13 +1,13 @@
+<p-toast></p-toast>
 <div class="p-inputgroup" style="padding-bottom: 30px;">
   <input type="text" [(ngModel)]="searchKeyword" pInputText placeholder="Tìm kiếm địa điểm..." (input)="onSearchInputChange()"/>
   <!-- <button type="button" pButton icon="pi pi-search" styleClass="p-button-warn"  (click)="searchLocation()"></button> -->
 </div>
 <div class="categories">
-  <app-category *ngFor="let category of categories" [label]="category.name"></app-category>
+  <app-category *ngFor="let category of categories" [label]="category.name" (click)="filterLocations(category)"></app-category>
 </div>
-
-<div pAnimateOnScroll enterClass="scalein" leaveClass="fadeout" class="location-list">
-  <a [routerLink]="['/location', location._id]" *ngFor="let location of locations" class="location-card">
+<div class="location-list">
+  <a [routerLink]="['/location', location._id]" *ngFor="let location of displayedLocations" class="location-card">
     <img src="http://localhost:4000/locations/{{location.img_name[0]}}" style="width: 100%; height: 250px;" alt="Location Image" />
     <div class="location-details">
       <h3>{{location.name}}</h3>
@@ -16,14 +16,15 @@
         <p-tag *ngFor="let category of location.categories" [rounded]="true"><i class="pi pi-tags"></i>&#160;{{category.name}}</p-tag>
       </div>
       <div class="rating" style="padding: 10px 0">
-        <p-rating [(ngModel)]="value" [readonly]="true" [cancel]="false"></p-rating>
+        <p-rating [(ngModel)]="location.rating" [readonly]="true" [cancel]="false"></p-rating>
       </div>
       <p-tag *ngIf="location.status" severity="success" value="Đã xác minh" [rounded]="true"></p-tag>
       <p-tag *ngIf="!location.status" severity="warning" value="Đợi duyệt" [rounded]="true"></p-tag>
       <!-- Các thông tin khác bạn muốn hiển thị -->
       <i pTooltip="Thêm vào danh sách yêu thích" class="favorite-icon pi pi-heart"></i>
-      <!-- <i class="favorite-icon pi pi-heart-fill"></i> -->
+      <!-- <i pTooltip="Xóa khỏi danh sách yêu thích" class="favorite-icon pi pi-heart-fill"></i> -->
     </div>
   </a>
 </div>
+<button pButton class="load-more-btn" *ngIf="displayedLocations.length < this.locations.length" (click)="showMoreItems()">Xem thêm</button>
 <p-scrollTop behavior="smooth"></p-scrollTop>

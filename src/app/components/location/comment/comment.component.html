@@ -1,14 +1,16 @@
+<p-toast></p-toast>
 <div class="comment-section">
   <h3>Đánh giá</h3>
-  <form [formGroup]="commentForm" (ngSubmit)="onSubmit()">
+  <form *ngIf="isLoggedIn()" [formGroup]="commentForm" (ngSubmit)="onSubmit()">
     <div class="p-field">
-      <textarea id="message" pInputTextarea formControlName="message" placeholder="Viết đánh giá của bạn..."></textarea>
+      <textarea pInputTextarea formControlName="message" placeholder="Viết đánh giá của bạn..."></textarea>
     </div>
-    <div class="rating" style="padding: 10px 0">
+    <div class="rating" style="margin: 5px 0 10px 0">
       <p-rating [(ngModel)]="value" [readonly]="false" [cancel]="false" formControlName="rating"></p-rating>
     </div>
     <button pButton type="submit" label="Gửi" [disabled]="!this.commentForm.valid"></button>
   </form>
+  <p *ngIf="!isLoggedIn()">Đăng nhập để viết đánh giá</p>
 </div>
 <h4>{{ this.commentForm.value | json}}</h4>
 <h4>{{ this.commentForm.status | json}}</h4>
@@ -25,8 +27,9 @@
         </div>
       </div>
       <div class="comment-text"><h3>{{ comment.message }}</h3></div>
-      <div class="rating" style="padding: 10px 0">
+      <div class="rating" style="margin: 5px 0;">
         <p-rating [(ngModel)]="comment.rating"  [readonly]="true" [cancel]="false"></p-rating>
+        <p><strong>{{comment.rating}}/5</strong></p>
       </div>
       <div class="liked">
         <p-button icon="pi pi-thumbs-up-fill" label="{{ comment.liked }}"></p-button>

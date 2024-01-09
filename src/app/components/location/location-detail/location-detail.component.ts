@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
 import { CommentService } from 'src/app/services/comment.service';
 import { LocationService } from 'src/app/services/location.service';
 
@@ -25,7 +26,6 @@ export class LocationDetailComponent implements OnInit{
   getLocationById(location_id: string){
     this.locationService.getLocationById(location_id).subscribe(res => {
       this.location = res;
-      console.log(this.location);
     })
   }
   
