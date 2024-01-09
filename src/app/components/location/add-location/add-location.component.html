@@ -5,6 +5,11 @@
     <p-message severity="error" text="Tên địa điểm là trường bắt buộc" *ngIf="addLocationForm.get('name')?.hasError('required') && addLocationForm.get('name')?.touched"></p-message>
   </div>
   <div class="p-field">
+    <label for="address">Địa chỉ</label>
+    <input id="address" pInputText formControlName="address" />
+    <p-message severity="error" text="Địa chỉ là trường bắt buộc" *ngIf="addLocationForm.get('address')?.hasError('required') && addLocationForm.get('address')?.touched"></p-message>
+  </div>
+  <div class="p-field">
     <label for="desc">Mô tả</label>
     <textarea id="desc" pInputTextarea formControlName="desc"></textarea>
     <p-message severity="error" text="Mô tả là trường bắt buộc" *ngIf="addLocationForm.get('desc')?.hasError('required') && addLocationForm.get('desc')?.touched"></p-message>
@@ -12,11 +17,6 @@
   <div class="p-field">
     <label for="">Loại địa điểm</label>
     <p-multiSelect [options]="categories" formControlName="categories" optionLabel="name" placeholder="Loại địa điểm" display="chip"></p-multiSelect>
-  </div>
-  <div class="p-field">
-    <label for="address">Địa chỉ</label>
-    <input id="address" pInputText formControlName="address" />
-    <p-message severity="error" text="Địa chỉ là trường bắt buộc" *ngIf="addLocationForm.get('address')?.hasError('required') && addLocationForm.get('address')?.touched"></p-message>
   </div>
 
   <div class="p-field">

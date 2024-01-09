@@ -72,13 +72,11 @@ export class LocationListComponent implements OnInit{
   //filter
   filterLocations(category : any){
     const index = this.selectedCategories.indexOf(category);
-
     if (index === -1) {
       this.selectedCategories.push(category);
     } else {
       this.selectedCategories.splice(index, 1);
     }
-
     if (this.selectedCategories.length > 0) {
       this.filteredLocations = this.locations.filter(location =>
         location.categories.some((locationCategory :any) =>

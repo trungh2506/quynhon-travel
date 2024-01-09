@@ -59,3 +59,10 @@
   margin-top: 20px;
 }
 
+
+
+app-category.disabled {
+  pointer-events: none; /* Không cho phép sự kiện click khi button không được chọn */
+  opacity: 0.5; /* Giảm độ mờ khi button không được chọn */
+  /* Thêm các thuộc tính CSS khác tùy ý */
+}
