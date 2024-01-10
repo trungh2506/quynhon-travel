@@ -10,12 +10,18 @@
     <p-image *ngFor="let image of this.location.img_name, index as i" 
     src="http://localhost:4000/locations/{{location.img_name[i]}}" 
     alt="Image" width="300px" [preview]="true"></p-image>
-
   </div>
   
   <div class="map">
   </div>
+  <div *ngIf="this.isAdmin()" class="admin-confirm">
+    <p-toast></p-toast>
+    <p-confirmDialog></p-confirmDialog>
+    <p-button (click)="confirm1($event)" icon="pi pi-check" label="Duyệt" styleClass="p-button-rounded p-button-success"></p-button>
+    <p-button (click)="confirm2($event)" icon="pi pi-times" label="Xóa" styleClass="p-button-rounded p-button-danger"></p-button>
+  </div>
 </div>
+
 <div style="padding-top: 30px;">
   <app-comment></app-comment>
 </div>

@@ -29,6 +29,11 @@ export class HeaderComponent implements OnInit{
           icon: 'pi pi-heart-fill'
       },
       {
+          label: 'Quản lý',
+          icon: 'pi pi-th-large',
+          routerLink: '/admin/location/list',
+      },
+      {
           label: 'Đăng xuất',
           icon: 'pi pi-sign-out',
           command: () => {
@@ -58,6 +63,10 @@ export class HeaderComponent implements OnInit{
   getAvatar(){
     let avatar = this.authService.decodedToken().avatar;
     return avatar;
+  }
+  getFullname(){
+    let fullname = this.authService.decodedToken().username;
+    return fullname;
   }
   isAdmin(){
     if(this.authService.decodedToken().role === true){

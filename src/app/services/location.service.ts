@@ -29,4 +29,12 @@ export class LocationService {
   searchLocation(key: string): Observable<any>{
     return this.http.post<any>(`${this.apiUrl}/location`, {key: key});
   }
+
+  //admin
+  getAdminLocations():Observable<any>{
+    return this.http.get<any>(`${this.apiUrl}/auth/locations`);
+  }
+  getAdminCategories(): Observable<any>{
+    return this.http.get<any>(`${this.apiUrl}/auth/categories`);
+  }
 }

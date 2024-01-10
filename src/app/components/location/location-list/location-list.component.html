@@ -18,8 +18,8 @@
       <div class="rating" style="padding: 10px 0">
         <p-rating [(ngModel)]="location.rating" [readonly]="true" [cancel]="false"></p-rating>
       </div>
-      <p-tag *ngIf="location.status" severity="success" value="Đã xác minh" [rounded]="true"></p-tag>
-      <p-tag *ngIf="!location.status" severity="warning" value="Đợi duyệt" [rounded]="true"></p-tag>
+      <p-tag *ngIf="location.status" icon="pi pi-verified" severity="success" value="Đã xác minh" [rounded]="true"></p-tag>
+      <p-tag *ngIf="!location.status" severity="warning" value="Chưa xác minh" [rounded]="true"></p-tag>
       <!-- Các thông tin khác bạn muốn hiển thị -->
       <i pTooltip="Thêm vào danh sách yêu thích" class="favorite-icon pi pi-heart"></i>
       <!-- <i pTooltip="Xóa khỏi danh sách yêu thích" class="favorite-icon pi pi-heart-fill"></i> -->

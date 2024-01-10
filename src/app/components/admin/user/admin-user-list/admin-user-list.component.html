@@ -1,0 +1,41 @@
+<div class="card">
+  <h1>Danh sách người dùng</h1>
+<p-table [value]="users" styleClass="p-datatable-striped" [tableStyle]="{'min-width': '60rem'}"
+[paginator]="true"
+[rows]="5"
+[showCurrentPageReport]="true"
+[rowsPerPageOptions]="[5, 10, 20]"
+currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries">>
+  <ng-template pTemplate="header">
+      <tr>
+          <th pSortableColumn="fullname">Họ tên <p-sortIcon field="fullname"></p-sortIcon></th>
+          <th pSortableColumn="email">Email <p-sortIcon field="email"></p-sortIcon></th>
+          <th pSortableColumn="password">Password <p-sortIcon field="password"></p-sortIcon> </th>
+          <th>Ảnh đại diện</th>
+          <th pSortableColumn="role">Role <p-sortIcon field="role"></p-sortIcon></th>
+          <th>Hành động</th>
+      </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-user>
+      <tr>
+          <td>{{user.fullname}}</td>
+          <td>{{user.email}}</td>
+          <td>{{user.password}}</td>
+          <td><img [src]="'http://localhost:4000/avatar/' + user.avatar" [alt]="user.avatar" width="50" class="shadow-4" /></td>
+          <td><p-tag [rounded]="true" [value]="getRoleInfo(user.role)" [severity]="getSeverity(user.role)"></p-tag></td>
+          <td class="action-row">
+            <button pTooltip="Sửa thông tin người dùng" pButton type="button" 
+              class="action-btn p-button-rounded  
+              p-button-success" icon="pi pi-pencil"> 
+            </button> 
+            <button pTooltip="Xóa người dùng" pButton type="button" class="action-btn p-button-rounded p-button-danger" icon="pi pi-trash"></button>
+          </td>
+      </tr>
+  </ng-template>
+  <ng-template pTemplate="summary">
+      <div class="flex align-items-center justify-content-between">
+          Tổng người dùng: {{users ? users.length : 0 }}
+      </div>
+  </ng-template>
+</p-table>
+</div>

@@ -1,0 +1,56 @@
+<div class="card">
+  <h1>Danh sách địa điểm</h1>
+<p-table 
+  #dt
+  [value]="displayedLocations" 
+  styleClass="p-datatable-striped" 
+  [tableStyle]="{'min-width': '60rem'}"
+  [paginator]="true"
+  [rows]="5"
+  [showCurrentPageReport]="true"
+  [rowsPerPageOptions]="[5, 10, 20]"
+  currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries">
+  <ng-template pTemplate="caption">
+    <div class="flex align-items-center justify-content-between">
+        <span class="p-input-icon-left">
+            <i class="pi pi-search"></i>
+            <input type="text" [(ngModel)]="searchKeyword" pInputText placeholder="Tìm kiếm địa điểm..." (input)="onSearchInputChange()"/>
+        </span>
+    </div>
+</ng-template>
+  <ng-template pTemplate="header">
+      <tr>
+          <th>Người đăng</th>
+          <th pSortableColumn="name">Tên địa điểm<p-sortIcon field="name"></p-sortIcon></th>
+          <th>Loại địa điểm</th>
+          <th pSortableColumn="status">Trạng thái<p-sortIcon field="status"></p-sortIcon></th>
+          <th>Hành động</th>
+      </tr>
+  </ng-template>
+  <ng-template let-location pTemplate="body" >
+      <tr>
+          <td>{{location.user_id.fullname}}</td>
+          <td>{{location.name}}</td>
+          <td *ngFor="let category of location.categories">{{category.name}}</td>
+          <!-- <td><img [src]="'http://localhost:4000/avatar/' + user.avatar" [alt]="user.avatar" width="50" class="shadow-4" /></td> -->
+          <td><p-tag [rounded]="true" [value]="getStatusInfo(location.status)" [severity]="getSeverity(location.status)"></p-tag></td>
+          <td class="action-row">
+            <a style="text-decoration: none;" [routerLink]="['/location', location._id]" pButton pTooltip="Xem chi tiết" pButton type="button" 
+              class="action-btn p-button-rounded  
+              p-button-info" icon="pi pi-info-circle"> 
+            </a> 
+            <button pTooltip="Sửa địa điểm" pButton type="button" 
+              class="action-btn p-button-rounded  
+              p-button-success" icon="pi pi-pencil"> 
+            </button> 
+            <button pTooltip="Xóa địa điểm" pButton type="button" class="action-btn p-button-rounded p-button-danger" icon="pi pi-trash"></button>
+          </td>
+      </tr>
+  </ng-template>
+  <ng-template pTemplate="summary">
+      <div class="flex align-items-center justify-content-between">
+          Tổng địa điểm: {{locations ? locations.length : 0 }}
+      </div>
+  </ng-template>
+</p-table>
+</div>
