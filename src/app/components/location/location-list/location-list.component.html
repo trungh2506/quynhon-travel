@@ -17,6 +17,7 @@
       </div>
       <div class="rating" style="padding: 10px 0">
         <p-rating [(ngModel)]="location.rating" [readonly]="true" [cancel]="false"></p-rating>
+        <p>{{location.rating}}/<strong>5</strong></p>
       </div>
       <p-tag *ngIf="location.status" icon="pi pi-verified" severity="success" value="Đã xác minh" [rounded]="true"></p-tag>
       <p-tag *ngIf="!location.status" severity="warning" value="Chưa xác minh" [rounded]="true"></p-tag>

@@ -30,6 +30,7 @@ export class LocationDetailComponent implements OnInit{
   getLocationById(location_id: string){
     this.locationService.getLocationById(location_id).subscribe(res => {
       this.location = res;
+      console.log(this.location)
     })
   }
   confirm1(event: Event) {
@@ -63,8 +64,10 @@ export class LocationDetailComponent implements OnInit{
       });
   }
   isAdmin(){
-    if(this.authService.decodedToken().role === true){
-      return true;
+    if(this.authService.isLoggedIn()){
+      if(this.authService.decodedToken().role === true){
+        return true;
+      }
     }
     return false;
   }

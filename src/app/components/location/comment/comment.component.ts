@@ -42,7 +42,6 @@ export class CommentComponent {
       this.comment.message = this.commentForm.get('message')?.value;
       this.comment.rating = this.commentForm.get('rating')?.value;
       this.commentService.postComment(this.comment).subscribe(res => {
-        // alert('Cảm ơn bạn đã đánh giá');
         this.messageService.add({ severity: 'success', summary: 'Thành công', detail: 'Cảm ơn bạn đã đánh giá!' });
       })
     }
