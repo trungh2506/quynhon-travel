@@ -1,0 +1,89 @@
+<p-toast></p-toast>
+<p-panel header="Thông tin cá nhân">
+  <!-- Nội dung thông tin cá nhân -->
+  <!-- Avatar và nút cập nhật -->
+  <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;">
+    <div>
+      <img src="assets/photo-35-16937323969741858692000.webp" alt="Avatar" style="border-radius: 50%; width: 80px; height: 80px;">
+    </div>
+    
+  </div>
+  <!-- Thông tin người dùng -->
+  <div *ngIf="this.user">
+    <p>
+      <strong>Họ tên:</strong> {{ this.user.fullname }}
+    </p>
+    <p>
+      <strong>Email:</strong> {{ this.user.email }}
+    </p>
+    <!-- Thêm các trường thông tin khác -->
+  </div>
+  <div>
+    <button *ngIf="this.checkUserProfile(this.user_id)" pButton type="button" label="Cập nhật thông tin cá nhân" class="p-button-success"></button>
+  </div>
+</p-panel>
+
+<p-tabView>
+  <p-tabPanel header="Các địa điểm đã đăng">
+    <!-- Nội dung danh sách địa điểm đã đăng -->
+    <p-table [value]="this.locations" [paginator]="true" [rows]="10" [tableStyle]="{'min-width': '60rem'}">
+      <ng-template pTemplate="header">
+        <tr>
+          <th pSortableColumn="name">Tên địa điểm <p-sortIcon field="name"></p-sortIcon></th>
+          <th>Địa chỉ</th>
+          <th pSortableColumn="rating">Rating <p-sortIcon field="rating"></p-sortIcon></th>
+          <!-- Thêm các cột khác nếu cần -->
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-location>
+        <tr>
+          <td>{{ location.name }}</td>
+          <td>{{ location.address }}</td>
+          <td>{{ location.rating }}/5</td>
+          <!-- Thêm các cột khác nếu cần -->
+        </tr>
+      </ng-template>
+    </p-table>
+  </p-tabPanel>
+
+  <p-tabPanel header="Các địa điểm yêu thích">
+    <!-- Nội dung danh sách yêu thích -->
+    <p-table [value]="this.favourite_locations" [paginator]="true" [rows]="10" [tableStyle]="{'min-width': '60rem'}">
+      <ng-template pTemplate="header">
+        <tr>
+          <th pSortableColumn="name">Tên địa điểm <p-sortIcon field="name"></p-sortIcon></th>
+          <th>Địa chỉ</th>
+          <th pSortableColumn="rating">Rating <p-sortIcon field="rating"></p-sortIcon></th>
+          <th *ngIf="this.checkUserProfile(this.user_id)"></th>
+          <!-- Thêm các cột khác nếu cần -->
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-favourite_location>
+        <tr>
+          <td>{{ favourite_location.location_id.name }}</td>
+          <td>{{ favourite_location.location_id.address }}</td>
+          <td>{{ favourite_location.location_id.rating }}/5</td>
+          <!-- Thêm các cột khác nếu cần -->
+          <td *ngIf="this.checkUserProfile(this.user_id)"><button (click)="addOrRemoveFavouriteLocation($event, favourite_location.location_id._id)" pButton label="Xóa khỏi yêu thích" class="p-button-danger p-button-rounded"></button></td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </p-tabPanel>
+  
+</p-tabView>
+
+
+<!-- <p-dialog header="Cập nhật thông tin" [(visible)]="updateDialog" [modal]="true" [width]="'400px'" [responsive]="true">
+  <form (ngSubmit)="updateUserInfo()">
+    <div>
+      <label for="newFullname">Fullname:</label>
+      <input type="text" id="newFullname" [(ngModel)]="newFullname" name="newFullname" required>
+    </div>
+    <div>
+      <label for="newEmail">Email:</label>
+      <input type="email" id="newEmail" [(ngModel)]="newEmail" name="newEmail" required>
+    </div>
+    <button type="submit" pButton label="Cập nhật" class="p-button-success"></button>
+    <button type="button" pButton label="Đóng" (click)="closeUpdateDialog()" class="p-button-secondary"></button>
+  </form>
+</p-dialog> -->

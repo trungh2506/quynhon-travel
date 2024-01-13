@@ -1,4 +1,4 @@
-<div class="place-detail">
+<div *ngIf="this.location" class="place-detail">
   <div class="place-info">
     <h1>{{ this.location.name }}</h1>
     <p>{{ this.location.desc }}</p>

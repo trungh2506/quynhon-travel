@@ -30,7 +30,6 @@ export class LocationDetailComponent implements OnInit{
   getLocationById(location_id: string){
     this.locationService.getLocationById(location_id).subscribe(res => {
       this.location = res;
-      console.log(this.location)
     })
   }
   confirm1(event: Event) {

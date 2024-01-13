@@ -107,7 +107,6 @@ import { StyleClassModule } from 'primeng/styleclass';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { CommentComponent } from './components/location/comment/comment.component';
 import { ReplyCommentComponent } from './components/location/reply-comment/reply-comment.component';
-import { FavoriteListComponent } from './components/user/favorite-list/favorite-list.component';
 import { AddLocationComponent } from './components/location/add-location/add-location.component';
 import { InterceptorService } from './services/interceptor.service';
 import { AdminLayoutComponent } from './components/layout/admin-layout/admin-layout.component';
@@ -115,6 +114,7 @@ import { AdminLocationListComponent } from './components/admin/location/admin-lo
 import { AdminUserListComponent } from './components/admin/user/admin-user-list/admin-user-list.component';
 import { AdminDashboardComponent } from './components/admin/dashboard/admin-dashboard/admin-dashboard.component';
 import { AdminCategoryListComponent } from './components/admin/category/admin-category-list/admin-category-list.component';
+import { UserProfileComponent } from './components/user/user-profile/user-profile.component';
 
 @NgModule({
   declarations: [
@@ -128,13 +128,13 @@ import { AdminCategoryListComponent } from './components/admin/category/admin-ca
     LocationDetailComponent,
     CommentComponent,
     ReplyCommentComponent,
-    FavoriteListComponent,
     AddLocationComponent,
     AdminLayoutComponent,
     AdminLocationListComponent,
     AdminUserListComponent,
     AdminDashboardComponent,
     AdminCategoryListComponent,
+    UserProfileComponent,
   ],
   imports: [
     BrowserModule,

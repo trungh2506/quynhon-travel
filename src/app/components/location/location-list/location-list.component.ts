@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Route, Router } from '@angular/router';
 import { MenuItem, MessageService } from 'primeng/api';
 import { Category } from 'src/app/models/category';
+import { AuthService } from 'src/app/services/auth.service';
 import { LocationService } from 'src/app/services/location.service';
 
 interface PageEvent {
@@ -28,7 +30,12 @@ export class LocationListComponent implements OnInit{
   displayedLocations: any[] = [];
   locationPerPage: number = 4;
 
-  constructor(private locationService : LocationService, private messageService : MessageService){
+  favouriteStatus = false;
+  
+  constructor(private locationService : LocationService, 
+    private messageService : MessageService, 
+    private router: Router,
+    private authService : AuthService){
     
   }
   ngOnInit(): void {
@@ -90,6 +97,31 @@ export class LocationListComponent implements OnInit{
       this.messageService.add({ severity: 'info', summary: `Kết quả cho ${this.selectedCategories[0].name}`, detail: `${this.filteredLocations.length.toString()}` });
     } else {
       this.getLocations();
+    }
+  }
+  authorProfile(event: Event, user_id: string) {
+    // Ngăn chặn sự kiện click lan ra và chuyển hướng đến routerLink của thẻ img
+    event.stopPropagation();
+  
+    // Xử lý sự kiện click trên hình ảnh của tác giả
+    this.router.navigate(['/user', user_id]);
+  }
+  locationDetail(event: Event, location_id: string){
+    event.stopPropagation();
+    this.router.navigate(['/location', location_id]);
+  }
+
+  //favourite list
+  addOrRemoveFavouriteLocation(event: any, location_id : any){
+    event.stopPropagation();
+    if(!this.authService.isLoggedIn()){
+      this.messageService.add({ severity: 'warn', summary: `Cảnh báo`, detail: `Bạn chưa đăng nhập, vui lòng đăng nhập !` });
+      return;
+    }else {
+      const user_id = this.authService.decodedToken().user_id;
+      this.locationService.addOrRemoveFavouriteLocation(user_id, location_id).subscribe(res => {
+        this.messageService.add({ severity: 'success', summary: `Cảnh báo`, detail: `${res.status}` });
+      })
     }
   }
 }

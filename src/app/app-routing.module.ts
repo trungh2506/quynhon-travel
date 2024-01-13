@@ -4,7 +4,6 @@ import { LoginComponent } from './components/auth/login/login.component';
 import { RegisterComponent } from './components/auth/register/register.component';
 import { LocationListComponent } from './components/location/location-list/location-list.component';
 import { LocationDetailComponent } from './components/location/location-detail/location-detail.component';
-import { FavoriteListComponent } from './components/user/favorite-list/favorite-list.component';
 import { AddLocationComponent } from './components/location/add-location/add-location.component';
 import { GuardService } from './services/guard.service';
 import { AdminGuardService } from './services/admin-guard.service';
@@ -13,6 +12,7 @@ import { AdminUserListComponent } from './components/admin/user/admin-user-list/
 import { AdminLocationListComponent } from './components/admin/location/admin-location-list/admin-location-list.component';
 import { AdminDashboardComponent } from './components/admin/dashboard/admin-dashboard/admin-dashboard.component';
 import { AdminCategoryListComponent } from './components/admin/category/admin-category-list/admin-category-list.component';
+import { UserProfileComponent } from './components/user/user-profile/user-profile.component';
 
 
 const routes: Routes = [
@@ -29,7 +29,7 @@ const routes: Routes = [
     path: 'add', canActivate: [GuardService], component: AddLocationComponent
   },
   {
-    path: 'favorites',  component: FavoriteListComponent
+    path: 'user/:id',  component: UserProfileComponent
   },
   {
     path: 'location/:id', component: LocationDetailComponent

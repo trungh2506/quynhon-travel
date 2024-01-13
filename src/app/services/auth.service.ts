@@ -44,4 +44,13 @@ export class AuthService {
       return helper.decodeToken(token);
     }
   }
+  checkUserProfile(user_id : any){
+    if(this.isLoggedIn()){
+      if(this.decodedToken().user_id === user_id){
+        return true;
+      }
+      return false;
+    }
+    return false;
+  }
 }

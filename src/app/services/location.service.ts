@@ -37,4 +37,10 @@ export class LocationService {
   getAdminCategories(): Observable<any>{
     return this.http.get<any>(`${this.apiUrl}/auth/categories`);
   }
+
+  //Thêm location vào favourite list
+  addOrRemoveFavouriteLocation(user_id: any, location_id: any): Observable<any>{
+    const data = { user_id: user_id, location_id: location_id };
+    return this.http.post<any>(`${this.apiUrl}/user/${user_id}/favorite/${location_id}`, data)
+  }  
 }

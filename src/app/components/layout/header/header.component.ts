@@ -18,7 +18,8 @@ export class HeaderComponent implements OnInit{
     this.items = [
       {
           label: 'Thông tin cá nhân',
-          icon: 'pi pi-info-circle'
+          icon: 'pi pi-info-circle',
+          routerLink: `/user/${this.getUserId()}`
       },
       {
           label: 'Địa điểm của bạn',
@@ -67,6 +68,10 @@ export class HeaderComponent implements OnInit{
   getFullname(){
     let fullname = this.authService.decodedToken().username;
     return fullname;
+  }
+  getUserId(){
+    let user_id = this.authService.decodedToken().user_id;
+    return user_id;
   }
   isAdmin(){
     if(this.authService.decodedToken().role === true){
