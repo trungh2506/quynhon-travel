@@ -32,7 +32,7 @@ export class LocationDetailComponent implements OnInit{
       this.location = res;
     })
   }
-  confirm1(event: Event) {
+  verifyLocation(event: Event, location_id: any) {
       this.confirmationService.confirm({
           target: event.target as EventTarget,
           message: 'Bạn có chắc muốn xác minh địa điểm này?',
@@ -42,12 +42,15 @@ export class LocationDetailComponent implements OnInit{
           rejectIcon:"none",
           rejectButtonStyleClass:"p-button-text",
           accept: () => {
-              this.messageService.add({ severity: 'success', summary: 'Thành công', detail: 'Xác minh thành công!' });
+              this.locationService.verifyLocation(location_id).subscribe(res => {
+                this.messageService.add({ severity: 'success', summary: 'Thành công', detail: `${res.msg}` });
+              })
+              
           }
       });
   }
 
-  confirm2(event: Event) {
+  deleteLocation(event: Event, location_id: any) {
       this.confirmationService.confirm({
           target: event.target as EventTarget,
           message: 'Bạn có muốn xóa địa điểm này?',
@@ -58,7 +61,10 @@ export class LocationDetailComponent implements OnInit{
           acceptIcon:"none",
           rejectIcon:"none",
           accept: () => {
-              this.messageService.add({ severity: 'info', summary: 'Thành công', detail: 'Xóa địa điểm thành công!' });
+              this.locationService.deleteLocation(location_id).subscribe(res => {
+                this.messageService.add({ severity: 'success', summary: 'Thành công', detail: `${res.msg}` });
+              })
+              
           },
       });
   }

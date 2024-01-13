@@ -26,6 +26,7 @@
       <!-- <i (click)="addOrRemoveFavouriteLocation($event, location._id)" pTooltip="Xóa khỏi danh sách yêu thích" class="favorite-icon pi pi-heart-fill"></i> -->
     </div>
     <div class="author">
+      <span style="font-size: 12px;">Người đăng: &#160;</span>
       <img (click)="authorProfile($event, location.user_id._id)" pTooltip="{{ location.user_id.fullname }}" style="width: 30px; height: 30px;" src="http://localhost:4000/avatar/{{location.user_id.avatar}}" alt="">
     </div>
   </a>

@@ -50,12 +50,22 @@ export class LocationListComponent implements OnInit{
     })
   }
   getLocations(){
-    this.locationService.getLocations().subscribe(res => {
-      this.locations = res.locations;
-      for(let i = 0; i < 8; i++){
-        this.displayedLocations[i] = this.locations[i];
-      }
-    })
+    if(this.isAdmin()){
+      this.locationService.getAdminLocations().subscribe(res => {
+        this.locations = res.locations;
+        for(let i = 0; i < 8; i++){
+          this.displayedLocations[i] = this.locations[i];
+        }
+      })
+    }else {
+      this.locationService.getLocations().subscribe(res => {
+        this.locations = res.locations;
+        for(let i = 0; i < 8; i++){
+          this.displayedLocations[i] = this.locations[i];
+        }
+      })
+    }
+    
   }
   searchLocation(){
     this.locationService.searchLocation(this.searchKeyword).subscribe(res => {
@@ -123,5 +133,13 @@ export class LocationListComponent implements OnInit{
         this.messageService.add({ severity: 'success', summary: `Cảnh báo`, detail: `${res.status}` });
       })
     }
+  }
+  isAdmin(){
+    if(this.authService.isLoggedIn()){
+      if(this.authService.decodedToken().role === true){
+        return true;
+      }
+    }
+    return false;
   }
 }

@@ -14,11 +14,14 @@
   
   <div class="map">
   </div>
-  <div *ngIf="this.isAdmin()" class="admin-confirm">
+  <div *ngIf="this.isAdmin() && !this.location.status" class="admin-confirm">
     <p-toast></p-toast>
     <p-confirmDialog></p-confirmDialog>
-    <p-button (click)="confirm1($event)" icon="pi pi-check" label="Duyệt" styleClass="p-button-rounded p-button-success"></p-button>
-    <p-button (click)="confirm2($event)" icon="pi pi-times" label="Xóa" styleClass="p-button-rounded p-button-danger"></p-button>
+    <p-button (click)="verifyLocation($event, this.location._id)" icon="pi pi-check" label="Duyệt" styleClass="p-button-rounded p-button-success"></p-button>
+    <p-button (click)="deleteLocation($event, this.location._id)" icon="pi pi-times" label="Xóa" styleClass="p-button-rounded p-button-danger"></p-button>
+  </div>
+  <div *ngIf="this.location.status" class="">
+    <p-tag icon="pi pi-verified" severity="success" value="Đã xác minh" [rounded]="true"></p-tag>
   </div>
 </div>
 

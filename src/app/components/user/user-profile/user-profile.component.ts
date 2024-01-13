@@ -52,7 +52,7 @@ export class UserProfileComponent {
     }else {
       const user_id = this.authService.decodedToken().user_id;
       this.locationService.addOrRemoveFavouriteLocation(user_id, location_id).subscribe(res => {
-        this.messageService.add({ severity: 'success', summary: `Cảnh báo`, detail: `${res.status}` });
+        this.messageService.add({ severity: 'success', summary: `Thành công`, detail: `${res.status}` });
       })
     }
   }
