@@ -25,11 +25,11 @@
       <tr>
           <td>{{category.name}}</td>
           <td class="action-row">
-            <button pTooltip="Sửa địa điểm" pButton type="button" 
+            <!-- <button pTooltip="Sửa địa điểm" pButton type="button" 
               class="action-btn p-button-rounded  
               p-button-success" icon="pi pi-pencil"> 
-            </button> 
-            <button pTooltip="Xóa địa điểm" pButton type="button" class="action-btn p-button-rounded p-button-danger" icon="pi pi-trash"></button>
+            </button>  -->
+            <button (click)="deleteCategory(category._id)" pTooltip="Xóa địa điểm" pButton type="button" class="action-btn p-button-rounded p-button-danger" icon="pi pi-trash"></button>
           </td>
       </tr>
   </ng-template>

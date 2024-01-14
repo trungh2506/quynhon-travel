@@ -25,7 +25,10 @@ export class AdminCategoryListComponent implements OnInit{
   }
   onSubmit() {
     if (this.categoryForm.valid) {
-      this.messageService.add({ severity: 'success', summary: 'Thành công', detail: `Đã thêm: "${this.categoryForm.get('name')?.value}"  thành công!` });
+      this.locationService.addCategory(this.categoryForm.value).subscribe(res => {
+        this.messageService.add({ severity: 'success', summary: 'Thành công', detail: `Đã thêm: "${this.categoryForm.get('name')?.value}"  thành công!` });
+      })
+      
     }
   }
   getCategories(){
@@ -33,19 +36,10 @@ export class AdminCategoryListComponent implements OnInit{
       this.categories = res.categories;
     })
   }
-  getSeverity(role: boolean) {
-    if(role){
-      return 'success';
-    }else{
-      return 'warning';
-    }
-  }
-  getStatusInfo(role: boolean){
-    if(role){
-      return 'Đã xác minh';
-    }else{
-      return 'Chưa xác minh';
-    }
+  deleteCategory(category_id: any){
+    this.locationService.deleteCategory(category_id).subscribe(res => {
+      this.messageService.add({ severity: 'success', summary: 'Thành công', detail: `${res.msg}` });
+    })
   }
   showDialog() {
     this.visible = true;

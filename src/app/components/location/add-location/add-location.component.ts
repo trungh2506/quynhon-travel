@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { MessageService } from 'primeng/api';
 import { UploadEvent } from 'primeng/fileupload';
 import { AuthService } from 'src/app/services/auth.service';
 import { LocationService } from 'src/app/services/location.service';
@@ -21,7 +22,8 @@ export class AddLocationComponent implements OnInit{
   constructor(private fb: FormBuilder, 
     private locationService : LocationService, 
     private authService : AuthService,
-    private router: Router) { 
+    private router: Router,
+    private messageService : MessageService) { 
     this.getCategories();
   }
 
@@ -61,8 +63,10 @@ export class AddLocationComponent implements OnInit{
 
     this.locationService.addLocation(formData).subscribe(response => {
       // console.log('Upload successful:', response);
-      alert('Thêm địa điểm thành công. Cảm ơn bạn đã cung cấp!')
-      this.router.navigate(['/add']);
+      this.router.navigate(['/']);
+      setTimeout(() => {
+        this.messageService.add({ severity: 'success', summary: 'Thành công', detail: 'Thêm địa điểm thành công. Cảm ơn bạn đã cung cấp!`' });
+      }, 100);
     });
       }
     }

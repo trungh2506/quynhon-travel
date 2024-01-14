@@ -30,10 +30,10 @@ export class LoginComponent {
             const token = data.access_token;
             this.authService.saveToken(token);
             // alert('Đăng nhập thành công!!!');
-            this.messageService.add({ severity: 'success', summary: 'Thành công', detail: 'Đăng nhập thành công!' });
+            this.router.navigate(['/']);
             setTimeout(() => {
-              this.router.navigate(['/']);
-            }, 1000);
+              this.messageService.add({ severity: 'success', summary: 'Thành công', detail: 'Đăng nhập thành công!' });
+            }, 100);
             
           })
       

@@ -26,7 +26,7 @@
 <p-tabView>
   <p-tabPanel header="Các địa điểm đã đăng">
     <!-- Nội dung danh sách địa điểm đã đăng -->
-    <p-table [value]="this.locations" [paginator]="true" [rows]="10" [tableStyle]="{'min-width': '60rem'}">
+    <p-table *ngIf="this.locations.length > 0" [value]="this.locations" [paginator]="true" [rows]="10" [tableStyle]="{'min-width': '60rem'}">
       <ng-template pTemplate="header">
         <tr>
           <th pSortableColumn="name">Tên địa điểm <p-sortIcon field="name"></p-sortIcon></th>
@@ -44,11 +44,12 @@
         </tr>
       </ng-template>
     </p-table>
+    <p *ngIf="this.locations.length == 0">Người dùng chưa đăng địa điểm nào!</p>
   </p-tabPanel>
 
   <p-tabPanel header="Các địa điểm yêu thích">
     <!-- Nội dung danh sách yêu thích -->
-    <p-table [value]="this.favourite_locations" [paginator]="true" [rows]="10" [tableStyle]="{'min-width': '60rem'}">
+    <p-table *ngIf="this.favourite_locations.length > 0" [value]="this.favourite_locations" [paginator]="true" [rows]="10" [tableStyle]="{'min-width': '60rem'}">
       <ng-template pTemplate="header">
         <tr>
           <th pSortableColumn="name">Tên địa điểm <p-sortIcon field="name"></p-sortIcon></th>
@@ -68,6 +69,7 @@
         </tr>
       </ng-template>
     </p-table>
+    <p *ngIf="this.favourite_locations.length == 0">Người dùng chưa có yêu thích địa điểm nào!</p>
   </p-tabPanel>
   
 </p-tabView>

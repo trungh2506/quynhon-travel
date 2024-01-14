@@ -6,8 +6,11 @@
 <div class="categories">
   <app-category *ngFor="let category of categories" [label]="category.name" (click)="filterLocations(category)"></app-category>
 </div>
+<div *ngIf="this.selectedCategories.length > 0" style="margin-top: 25px;" class="result-filter">
+  Kết quả lọc : {{this.displayedLocations.length}} địa điểm
+</div>
 <div class="location-list">
-  <a (click)="locationDetail($event, location._id)" *ngFor="let location of displayedLocations" class="location-card">
+  <a (click)="locationDetail($event, location._id)" *ngFor="let location of displayedLocations" class="location-card" [ngClass]="{'status-false' : location.status == false}">
     <img src="http://localhost:4000/locations/{{location.img_name[0]}}" style="width: 100%; height: 250px;" alt="Location Image" />
     <div class="location-details">
       <h3>{{location.name}}</h3>
@@ -31,8 +34,8 @@
     </div>
   </a>
 </div>
+
+
 <button pButton class="load-more-btn" *ngIf="displayedLocations.length < this.locations.length" (click)="showMoreItems()">Xem thêm</button>
 <p-scrollTop behavior="smooth"></p-scrollTop>
-
-
 <p-toast></p-toast>

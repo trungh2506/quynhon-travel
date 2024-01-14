@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { AuthService } from 'src/app/services/auth.service';
 import { CommentService } from 'src/app/services/comment.service';
@@ -20,7 +20,8 @@ export class LocationDetailComponent implements OnInit{
     private commentService : CommentService,
     private confirmationService: ConfirmationService, 
     private messageService: MessageService,
-    private authService : AuthService){
+    private authService : AuthService,
+    private router : Router){
     
   }
   ngOnInit(): void {
@@ -62,7 +63,10 @@ export class LocationDetailComponent implements OnInit{
           rejectIcon:"none",
           accept: () => {
               this.locationService.deleteLocation(location_id).subscribe(res => {
-                this.messageService.add({ severity: 'success', summary: 'Thành công', detail: `${res.msg}` });
+                this.router.navigate(['/']);
+                setTimeout(() => {
+                  this.messageService.add({ severity: 'success', summary: 'Thành công', detail: `${res.msg}` });
+                }, 100);
               })
               
           },

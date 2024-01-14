@@ -20,7 +20,7 @@ interface PageEvent {
 export class LocationListComponent implements OnInit{
   categories: any[] = [];
   locations: any[] = [];
-  selectedCategories: any[] = [];
+  selectedCategories: Category[] = [];
   filteredLocations: any[] = [];
   value: number = 4;
   first: number = 0;

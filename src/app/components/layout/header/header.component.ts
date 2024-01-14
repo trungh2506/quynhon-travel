@@ -21,14 +21,14 @@ export class HeaderComponent implements OnInit{
           icon: 'pi pi-info-circle',
           routerLink: `/user/${this.getUserId()}`
       },
-      {
-          label: 'Địa điểm của bạn',
-          icon: 'pi pi-map-marker'
-      },
-      {
-          label: 'Địa điểm yêu thích',
-          icon: 'pi pi-heart-fill'
-      },
+      // {
+      //     label: 'Địa điểm của bạn',
+      //     icon: 'pi pi-map-marker'
+      // },
+      // {
+      //     label: 'Địa điểm yêu thích',
+      //     icon: 'pi pi-heart-fill'
+      // },
       {
           label: 'Quản lý',
           icon: 'pi pi-th-large',
@@ -70,8 +70,10 @@ export class HeaderComponent implements OnInit{
     return fullname;
   }
   getUserId(){
-    let user_id = this.authService.decodedToken().user_id;
-    return user_id;
+    if(this.authService.isLoggedIn()){
+      let user_id = this.authService.decodedToken().user_id;
+      return user_id;
+    }else return;
   }
   isAdmin(){
     if(this.authService.decodedToken().role === true){

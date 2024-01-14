@@ -51,6 +51,12 @@ export class LocationService {
   deleteLocation(location_id: any): Observable<any>{
     return this.http.delete<any>(`${this.apiUrl}/auth/location/${location_id}`, location_id);
   }
+  addCategory(category_name: any):Observable<any>{
+    return this.http.post<any>(`${this.apiUrl}/auth/category`, category_name);
+  }
+  deleteCategory(category_id: any):Observable<any>{
+    return this.http.delete<any>(`${this.apiUrl}/auth/category/${category_id}`, category_id);
+  }
   //Thêm location vào favourite list
   addOrRemoveFavouriteLocation(user_id: any, location_id: any): Observable<any>{
     const data = { user_id: user_id, location_id: location_id };
