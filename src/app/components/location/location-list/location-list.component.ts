@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Route, Router } from '@angular/router';
 import { MenuItem, MessageService } from 'primeng/api';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Category } from 'src/app/models/category';
+import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
 import { LocationService } from 'src/app/services/location.service';
+import { UserService } from 'src/app/services/user.service';
 
 interface PageEvent {
   first: number;
@@ -18,6 +21,13 @@ interface PageEvent {
   styleUrls: ['./location-list.component.scss']
 })
 export class LocationListComponent implements OnInit{
+  private locationsSubject = new BehaviorSubject<any[]>([]);
+  locations$: Observable<any[]> = this.locationsSubject.asObservable();
+
+  // danh sách địa điểm yêu thích của người dùng
+  private favouritesSubject = new BehaviorSubject<any[]>([]);
+  favourites$: Observable<any[]> = this.favouritesSubject.asObservable();
+
   categories: any[] = [];
   locations: any[] = [];
   selectedCategories: Category[] = [];
@@ -30,17 +40,17 @@ export class LocationListComponent implements OnInit{
   displayedLocations: any[] = [];
   locationPerPage: number = 4;
 
-  favouriteStatus = false;
-  
   constructor(private locationService : LocationService, 
     private messageService : MessageService, 
     private router: Router,
-    private authService : AuthService){
+    private authService : AuthService, 
+    private userService : UserService){
     
   }
   ngOnInit(): void {
     this.getCategories();
     this.getLocations();
+    this.getFavouriteList();
     this.showMoreItems();
   }
   
@@ -50,18 +60,19 @@ export class LocationListComponent implements OnInit{
     })
   }
   getLocations(){
+    //Admin sẽ thấy những địa điểm chưa duyệt
     if(this.isAdmin()){
       this.locationService.getAdminLocations().subscribe(res => {
-        this.locations = res.locations;
+        this.locationsSubject.next(res.locations);
         for(let i = 0; i < 8; i++){
-          this.displayedLocations[i] = this.locations[i];
+          this.displayedLocations[i] = this.locationsSubject.getValue()[i];
         }
       })
     }else {
       this.locationService.getLocations().subscribe(res => {
-        this.locations = res.locations;
+        this.locationsSubject.next(res.locations);
         for(let i = 0; i < 8; i++){
-          this.displayedLocations[i] = this.locations[i];
+          this.displayedLocations[i] = this.locationsSubject.getValue()[i];
         }
       })
     }
@@ -70,6 +81,7 @@ export class LocationListComponent implements OnInit{
   searchLocation(){
     this.locationService.searchLocation(this.searchKeyword).subscribe(res => {
       this.locations = res.locations;
+      this.locationsSubject.next(res.locations);
       this.displayedLocations = this.locations;
     })
   }
@@ -82,7 +94,7 @@ export class LocationListComponent implements OnInit{
   }
   //Load more button function
   showMoreItems() {
-    const remainingItems = this.locations.slice(this.displayedLocations.length, this.displayedLocations.length + this.locationPerPage);
+    const remainingItems = this.locationsSubject.getValue().slice(this.displayedLocations.length, this.displayedLocations.length + this.locationPerPage);
     this.displayedLocations = [...this.displayedLocations, ...remainingItems];
   }
 
@@ -95,15 +107,16 @@ export class LocationListComponent implements OnInit{
       this.selectedCategories.splice(index, 1);
     }
     if (this.selectedCategories.length > 0) {
-      this.filteredLocations = this.locations.filter(location =>
+      this.filteredLocations = this.locationsSubject.getValue().filter(location =>
         location.categories.some((locationCategory :any) =>
           this.selectedCategories.some((selectedCategory : any) =>
             locationCategory._id === selectedCategory._id
           )
         )
       );
-      this.locations = this.filteredLocations
-      this.displayedLocations = this.locations;
+      this.locations = this.filteredLocations;
+      this.locationsSubject.next(this.filteredLocations);
+      this.displayedLocations = this.locationsSubject.getValue();
       this.messageService.add({ severity: 'info', summary: `Kết quả cho ${this.selectedCategories[0].name}`, detail: `${this.filteredLocations.length.toString()}` });
     } else {
       this.getLocations();
@@ -130,9 +143,35 @@ export class LocationListComponent implements OnInit{
     }else {
       const user_id = this.authService.decodedToken().user_id;
       this.locationService.addOrRemoveFavouriteLocation(user_id, location_id).subscribe(res => {
-        this.messageService.add({ severity: 'success', summary: `Cảnh báo`, detail: `${res.status}` });
+        this.getFavouriteList();
+        this.messageService.add({ severity: 'success', summary: `Thành công`, detail: `${res.status}` });
       })
     }
+  }
+  // lấy danh sách địa điểm yêu thích người dùng
+  getFavouriteList(){
+    if(this.authService.isLoggedIn()){
+      this.userService.getUserInfoById(this.authService.decodedToken().user_id).subscribe(res => {
+        this.favouritesSubject.next(res.favourite_locations);
+        console.log(this.favouritesSubject.getValue());
+      })
+    }
+    
+  }
+  // kiểm tra địa điểm đã được người dùng thêm vào yêu thích hay chưa
+  isFavored(location_id: any){
+    const favourites = this.favouritesSubject.getValue();
+    if(favourites.length == 0){
+      return false;
+    }else {
+      for(const location of favourites){
+        const isExits = favourites.find(loc => loc.location_id._id === location_id)
+        if(isExits)
+          return true;
+        else return false;
+      }
+    }
+    return false;
   }
   isAdmin(){
     if(this.authService.isLoggedIn()){

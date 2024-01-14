@@ -25,8 +25,8 @@
       <p-tag *ngIf="location.status" icon="pi pi-verified" severity="success" value="Đã xác minh" [rounded]="true"></p-tag>
       <p-tag *ngIf="!location.status" severity="warning" value="Chưa xác minh" [rounded]="true"></p-tag>
       <!-- Các thông tin khác bạn muốn hiển thị -->
-      <i (click)="addOrRemoveFavouriteLocation($event, location._id)" pTooltip="Thêm vào danh sách yêu thích" class="favorite-icon pi pi-heart"></i>
-      <!-- <i (click)="addOrRemoveFavouriteLocation($event, location._id)" pTooltip="Xóa khỏi danh sách yêu thích" class="favorite-icon pi pi-heart-fill"></i> -->
+      <i *ngIf="!isFavored(location._id)" (click)="addOrRemoveFavouriteLocation($event, location._id)" pTooltip="Thêm vào danh sách yêu thích" class="favorite-icon pi pi-heart"></i>
+      <i *ngIf="isFavored(location._id)" (click)="addOrRemoveFavouriteLocation($event, location._id)" pTooltip="Xóa khỏi danh sách yêu thích" class="favorite-icon favored pi pi-heart-fill"></i>
     </div>
     <div class="author">
       <span style="font-size: 12px;">Người đăng: &#160;</span>

@@ -5,16 +5,18 @@ import { AuthService } from 'src/app/services/auth.service';
 import { CommentService } from 'src/app/services/comment.service';
 import { MessageService } from 'primeng/api';
 import { Comment } from 'src/app/models/comment';
+import { BehaviorSubject, Observable } from 'rxjs';
 @Component({
   selector: 'app-comment',
   templateUrl: './comment.component.html',
   styleUrls: ['./comment.component.scss']
 })
 export class CommentComponent {
+  private commentsSubject = new BehaviorSubject<Comment[]>([]);
+  comments$: Observable<any[]> = this.commentsSubject.asObservable();
   comment: any
   commentForm: FormGroup;
   location_id: any
-  comments: any[] = [];
   value: number = 3;
   first: number = 0;
   constructor(private fb: FormBuilder, 
@@ -36,19 +38,20 @@ export class CommentComponent {
   onSubmit() {
     if (this.commentForm.valid) {
       this.comment = {};
-
       this.comment.user_id = this.authService.decodedToken().user_id;
       this.comment.location_id = this.location_id;
       this.comment.message = this.commentForm.get('message')?.value;
       this.comment.rating = this.commentForm.get('rating')?.value;
       this.commentService.postComment(this.comment).subscribe(res => {
+        this.getCommentByLocationId(this.location_id);
         this.messageService.add({ severity: 'success', summary: 'Thành công', detail: 'Cảm ơn bạn đã đánh giá!' });
       })
     }
   }
   getCommentByLocationId(location_id: string){
     this.commentService.getCommentByLocationId(location_id).subscribe(res => {
-      this.comments = res.comments.reverse();
+      // this.comments = res.comments.reverse();
+      this.commentsSubject.next(res.comments.reverse());
     })
   }
   isLoggedIn(){

@@ -15,7 +15,7 @@
 </div>
   <!-- Hiển thị danh sách bình luận -->
 <div class="comment-list">
-    <div *ngFor="let comment of this.comments"  class="comment-item p-card p-shadow-2">
+    <div *ngFor="let comment of this.comments$ | async"  class="comment-item p-card p-shadow-2">
       <div class="comment-header">
         <div class="avatar">
           <img src="http://localhost:4000/avatar/{{comment.user_id.avatar}}" alt="Avatar" />
@@ -33,9 +33,6 @@
       <div class="liked">
         <p-button icon="pi pi-thumbs-up-fill" label="{{ comment.liked }}"></p-button>
       </div>
-    </div>
-    <div *ngIf="this.comments.length == 0">
-      <p>Chưa có đánh giá!</p>
     </div>
   </div>
   

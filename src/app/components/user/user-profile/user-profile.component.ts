@@ -5,7 +5,7 @@ import { LocationService } from 'src/app/services/location.service';
 import { UserService } from 'src/app/services/user.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { MessageService } from 'primeng/api';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-user-profile',
@@ -13,6 +13,8 @@ import { Observable } from 'rxjs';
   styleUrls: ['./user-profile.component.scss']
 })
 export class UserProfileComponent {
+  private favouritesSubject = new BehaviorSubject<any[]>([]);
+  favourites$: Observable<any[]> = this.favouritesSubject.asObservable();
   locations: any[] = [];
   favourite_locations: any[] = [];
   user_id: any;
@@ -22,7 +24,6 @@ export class UserProfileComponent {
     private authService : AuthService,
     private messageService : MessageService,
     private locationService : LocationService){
-
   }
   ngOnInit() {
     this.route.params.subscribe(params => {
@@ -34,7 +35,7 @@ export class UserProfileComponent {
   getUserInfo(user_id: any){
     this.userService.getUserInfoById(user_id).subscribe(res => {
       this.locations = res.locations;
-      this.favourite_locations = res.favourite_locations;
+      this.favouritesSubject.next(res.favourite_locations);
       this.user = res.info;
     })
   }
@@ -55,5 +56,7 @@ export class UserProfileComponent {
         this.messageService.add({ severity: 'success', summary: `Thành công`, detail: `${res.status}` });
       })
     }
+    //Cập nhật lại sau khi add or remove
+    this.getUserInfo(this.user_id);
   }
 }
