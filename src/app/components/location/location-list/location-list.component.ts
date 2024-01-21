@@ -21,7 +21,7 @@ interface PageEvent {
   styleUrls: ['./location-list.component.scss']
 })
 export class LocationListComponent implements OnInit{
-  private locationsSubject = new BehaviorSubject<any[]>([]);
+  public locationsSubject = new BehaviorSubject<any[]>([]);
   locations$: Observable<any[]> = this.locationsSubject.asObservable();
 
   // danh sách địa điểm yêu thích của người dùng
@@ -29,7 +29,6 @@ export class LocationListComponent implements OnInit{
   favourites$: Observable<any[]> = this.favouritesSubject.asObservable();
 
   categories: any[] = [];
-  locations: any[] = [];
   selectedCategories: Category[] = [];
   filteredLocations: any[] = [];
   value: number = 4;
@@ -80,9 +79,8 @@ export class LocationListComponent implements OnInit{
   }
   searchLocation(){
     this.locationService.searchLocation(this.searchKeyword).subscribe(res => {
-      this.locations = res.locations;
       this.locationsSubject.next(res.locations);
-      this.displayedLocations = this.locations;
+      this.displayedLocations = this.locationsSubject.getValue();
     })
   }
   onSearchInputChange() {
@@ -98,26 +96,40 @@ export class LocationListComponent implements OnInit{
     this.displayedLocations = [...this.displayedLocations, ...remainingItems];
   }
 
+
+  hasSelectedCategories = (location: any, selectedCategories: any[]): boolean => {
+    return location.categories.some((locationCategory:any) => selectedCategories.some(selectedCategory => locationCategory._id === selectedCategory._id));
+  };
+
   //filter
   filterLocations(category : any){
     const index = this.selectedCategories.indexOf(category);
+
     if (index === -1) {
       this.selectedCategories.push(category);
     } else {
       this.selectedCategories.splice(index, 1);
     }
+    if (this.selectedCategories.length >= 2){
+      this.messageService.add({
+        severity: 'warn',
+        summary: `Chỉ được chọn 1`
+      });
+      return
+    }
     if (this.selectedCategories.length > 0) {
       this.filteredLocations = this.locationsSubject.getValue().filter(location =>
-        location.categories.some((locationCategory :any) =>
-          this.selectedCategories.some((selectedCategory : any) =>
-            locationCategory._id === selectedCategory._id
-          )
-        )
-      );
-      this.locations = this.filteredLocations;
+      this.hasSelectedCategories(location, this.selectedCategories)
+    );
+
+
       this.locationsSubject.next(this.filteredLocations);
       this.displayedLocations = this.locationsSubject.getValue();
-      this.messageService.add({ severity: 'info', summary: `Kết quả cho ${this.selectedCategories[0].name}`, detail: `${this.filteredLocations.length.toString()}` });
+      this.messageService.add({
+        severity: 'info',
+        summary: `Kết quả cho ${this.selectedCategories[0].name}`,
+        detail: `${this.filteredLocations.length.toString()}`
+      });
     } else {
       this.getLocations();
     }
@@ -181,4 +193,5 @@ export class LocationListComponent implements OnInit{
     }
     return false;
   }
+
 }

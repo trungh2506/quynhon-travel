@@ -1,2 +1,2 @@
 
-<p-toggleButton [onIcon]="'pi pi-check'" [offIcon]="'pi pi-map-marker'"   offLabel="{{label}}" onLabel="{{label}}"></p-toggleButton>
+<button pButton icon="pi pi-map-marker"  label="{{label}}" (click)="isClicked()" [ngClass]="{'clicked': this.clicked}"></button>

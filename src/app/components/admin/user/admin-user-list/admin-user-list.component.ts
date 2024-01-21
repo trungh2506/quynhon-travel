@@ -39,5 +39,10 @@ export class AdminUserListComponent {
         return 'user';
       }
     }
+    deleteUser(user_id : any){
+      this.userService.deleteUser(user_id).subscribe(res =>{
+        alert(`Xóa thành công ${res.msg}`);
+      })
+    }
 
 }

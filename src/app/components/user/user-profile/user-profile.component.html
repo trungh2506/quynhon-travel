@@ -2,7 +2,7 @@
 <p-panel header="Thông tin cá nhân">
   <!-- Nội dung thông tin cá nhân -->
   <!-- Avatar và nút cập nhật -->
-  <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;">
+  <div *ngIf="this.user" style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;">
     <div>
       <img src="http://localhost:4000/avatar/{{this.user.avatar}}" alt="Avatar" style="border-radius: 50%; width: 80px; height: 80px;">
     </div>
@@ -44,6 +44,7 @@
         </tr>
       </ng-template>
     </p-table>
+    <p *ngIf="this.locations.length == 0">Người dùng chưa đăng địa điểm nào!</p>
   </p-tabPanel>
 
   <p-tabPanel header="Các địa điểm yêu thích">
@@ -68,6 +69,7 @@
         </tr>
       </ng-template>
     </p-table>
+    <p *ngIf="this.favouritesSubject.getValue().length == 0">Người dùng chưa yêu thích địa điểm nào!</p>
   </p-tabPanel>
   
 </p-tabView>

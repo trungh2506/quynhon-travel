@@ -8,5 +8,10 @@ import { MessageService } from 'primeng/api';
 })
 export class CategoryComponent {
   @Input() label: string | undefined;
+  @Input() disabled: boolean = false;
+  @Input() clicked: boolean = false;
 
+  isClicked(){
+    this.clicked = !this.clicked;
+  }
 }

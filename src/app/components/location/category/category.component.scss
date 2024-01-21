@@ -1,11 +1,17 @@
-p-toggleButton {
+button {
   border-radius: 30px;
   margin-right: 10px;
   background-color: #fff;
   color: #333;
 
 }
+.disabled{
+  opacity: 0.5; /* hoặc bất kỳ thuộc tính CSS nào khác để chỉ ra nó bị disabled */
+  pointer-events: none; /* tắt sự kiện click */
+  cursor: not-allowed; 
+}
+
 .clicked{
+  background-color: #2563EB;
   color: white;
-  background-color: aqua;
 }

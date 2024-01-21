@@ -11,7 +11,7 @@
   [rowsPerPageOptions]="[5, 10, 20]"
   currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries">
   <ng-template pTemplate="caption">
-    <div class="flex align-items-center justify-content-between">
+    <div class="">
         <span class="p-input-icon-left">
             <i class="pi pi-search"></i>
             <input type="text" [(ngModel)]="searchKeyword" pInputText placeholder="Tìm kiếm địa điểm..." (input)="onSearchInputChange()"/>
@@ -39,16 +39,16 @@
               class="action-btn p-button-rounded  
               p-button-info" icon="pi pi-info-circle"> 
             </a> 
-            <button pTooltip="Sửa địa điểm" pButton type="button" 
+            <!-- <button pTooltip="Sửa địa điểm" pButton type="button" 
               class="action-btn p-button-rounded  
               p-button-success" icon="pi pi-pencil"> 
-            </button> 
-            <button pTooltip="Xóa địa điểm" pButton type="button" class="action-btn p-button-rounded p-button-danger" icon="pi pi-trash"></button>
+            </button>  -->
+            <button (click)="deleteLocation($event, location._id)"  pTooltip="Xóa địa điểm" pButton type="button" class="action-btn p-button-rounded p-button-danger" icon="pi pi-trash"></button>
           </td>
       </tr>
   </ng-template>
   <ng-template pTemplate="summary">
-      <div class="flex align-items-center justify-content-between">
+      <div class="">
           Tổng địa điểm: {{locations ? locations.length : 0 }}
       </div>
   </ng-template>

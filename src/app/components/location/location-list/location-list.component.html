@@ -36,6 +36,6 @@
 </div>
 
 
-<button pButton class="load-more-btn" *ngIf="displayedLocations.length < this.locations.length" (click)="showMoreItems()">Xem thêm</button>
+<button pButton class="load-more-btn" *ngIf="displayedLocations.length < this.locationsSubject.getValue().length" (click)="showMoreItems()">Xem thêm</button>
 <p-scrollTop behavior="smooth"></p-scrollTop>
 <p-toast></p-toast>

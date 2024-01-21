@@ -13,7 +13,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
   styleUrls: ['./user-profile.component.scss']
 })
 export class UserProfileComponent {
-  private favouritesSubject = new BehaviorSubject<any[]>([]);
+  public favouritesSubject = new BehaviorSubject<any[]>([]);
   favourites$: Observable<any[]> = this.favouritesSubject.asObservable();
   locations: any[] = [];
   favourite_locations: any[] = [];

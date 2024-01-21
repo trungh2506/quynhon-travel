@@ -28,7 +28,7 @@ currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries">
               class="action-btn p-button-rounded  
               p-button-success" icon="pi pi-pencil"> 
             </button> 
-            <button pTooltip="Xóa người dùng" pButton type="button" class="action-btn p-button-rounded p-button-danger" icon="pi pi-trash"></button>
+            <button (click)="deleteUser(user._id)" pTooltip="Xóa người dùng" pButton type="button" class="action-btn p-button-rounded p-button-danger" icon="pi pi-trash"></button>
           </td>
       </tr>
   </ng-template>
